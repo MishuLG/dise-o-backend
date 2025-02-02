@@ -1,0 +1,42 @@
+{
+  "users": [
+    {
+      "Uid_users": 3,
+      "email": "Andrea@gmail.com",
+      "password": "$2a$10$SrEWtuyRdnve8FaTQD9T3u7Aw4MFul95afVVbUzZoszvlUzzEf106",
+      "created_at": "2024-12-11T18:01:14.545Z",
+      "updated_at": "2024-12-11T18:01:14.545Z"
+    },
+    {
+      "Uid_users": 2,
+      "email": "Pablo@gmail.com",
+      "password": "$2a$10$MlQMlqO2fEPOmZNYazGFYOhnLdMCx3In62AsswHpjCHtWEZ4q3sbm",
+      "created_at": "2024-12-11T18:02:43.639Z",
+      "updated_at": "2024-12-11T18:02:43.639Z"
+    }
+  ],
+  "students": [
+    {
+      "id_student": 2,
+      "id_tutor": "2",
+      "id_section": 101,
+      "id_school_year": 2024,
+      "first_name_student": "Manuel",
+      "last_name_student": "Caceres",
+      "date_of_birth_student": "2010-05-15",
+      "health_record": "Allergic to peanuts"
+    }
+  ],
+  "enrollments": [
+    {
+      "id_subject": 101,
+      "id_class_schedules": 202,
+      "id_student": 1,
+      "id_school_year": 2024,
+      "created_at": "2024-01-01T12:00:00Z",
+      "updated_at": "2024-01-01T12:00:00Z",
+      "status": "active",
+      "id_enrollments": 1
+    }
+  ]
+}

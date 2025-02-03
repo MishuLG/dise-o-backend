@@ -24,10 +24,23 @@ config();
 
 const app = express();
 
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://dise-o-frontend.vercel.app',  
+  'https://diseno-frontend.vercel.app'  
+];
+
 app.use(cors({
-    origin: 'http://localhost:3000', 
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
 }));
 
 app.use(express.json()); 
@@ -47,14 +60,13 @@ app.use('/api', evaluationsRoutes);
 app.use('/api', newslettersRoutes);
 app.use('/api', dashboardRoutes);
 
-
 sequelize.sync()
   .then(() => {
-    console.log("Sequelize connected successfully");
+    console.log("✅ Sequelize connected successfully");
     app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
+      console.log(`🚀 Server running on port ${PORT}`);
     });
   })
   .catch((error) => {
-    console.error("Database connection failed:", error);
+    console.error("❌ Database connection failed:", error);
   });

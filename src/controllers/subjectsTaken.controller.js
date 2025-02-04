@@ -67,6 +67,34 @@ export const createSubjectTaken = async (req, res) => {
     }
 };
 
+export const EditSubjectTaken = async (req, res) => {
+    const { id } = req.params; 
+    const { id_student, id_subject, id_school_year, final_grade } = req.body;
+
+    
+    if (!id_student || !id_subject || !id_school_year) {
+        return res.status(400).json({ message: 'id_student, id_subject, and id_school_year are required' });
+    }
+
+    try {
+        const updatedSubjectTaken = await updateSubjectTakenModel(id, {
+            id_student,
+            id_subject,
+            id_school_year,
+            final_grade
+        });
+
+        if (!updatedSubjectTaken) {
+            return res.status(404).json({ message: 'Subject taken not found' });
+        }
+
+        res.json(updatedSubjectTaken);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Error updating subject taken' });
+    }
+};
+
 
 export const deleteSubjectTakenById = async (req, res) => {
     const { id } = req.params;

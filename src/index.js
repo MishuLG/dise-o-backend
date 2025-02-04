@@ -4,6 +4,7 @@ import { config } from 'dotenv';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import sequelize from "./database/sequelize.js";  
+
 import userRoutes from "./routes/users.routes.js";
 import studentRoutes from "./routes/students.routes.js";
 import enrollmentRoutes from "./routes/enrollments.routes.js";
@@ -25,26 +26,15 @@ config();
 const app = express();
 
 
-const allowedOrigins = [
-  'http://localhost:3000',
-  'https://dise-o-frontend.vercel.app',  
-  'https://diseno-frontend.vercel.app'  
-];
-
 app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: ["https://dise-o-frontend.vercel.app", "http://localhost:3000"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true,
 }));
 
 app.use(express.json()); 
 
+// Rutas
 app.use('/api', userRoutes);
 app.use('/api', studentRoutes);
 app.use('/api', enrollmentRoutes);
@@ -64,7 +54,7 @@ sequelize.sync()
   .then(() => {
     console.log("✅ Sequelize connected successfully");
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
+      console.log(`✅ Server running on port ${PORT}`);
     });
   })
   .catch((error) => {

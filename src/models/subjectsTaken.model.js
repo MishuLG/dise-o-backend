@@ -85,6 +85,32 @@ export const createSubjectTakenModel = async (subjectTakenData) => {
     return result.rows[0];
 };
 
+export const updateSubjectTakenModel = async (id, subjectTakenData) => {
+    const { id_student, id_subject, id_school_year, final_grade } = subjectTakenData;
+
+    const query = `
+        UPDATE subjects_taken
+        SET 
+            id_student = $1,
+            id_subject = $2,
+            id_school_year = $3,
+            final_grade = $4,
+            updated_at = CURRENT_DATE
+        WHERE id_subject_taken = $5
+        RETURNING *;
+    `;
+
+    const result = await pool.query(query, [
+        id_student,
+        id_subject,
+        id_school_year,
+        final_grade,
+        id
+    ]);
+
+    return result.rows[0];
+};
+
 export const deleteSubjectTakenByIdModel = async (id) => {
     const query = `DELETE FROM subjects_taken WHERE id_subject_taken = $1 RETURNING *;`;
     const result = await pool.query(query, [id]);
